@@ -85,7 +85,36 @@ class PasswordManager:
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Encrypted password manager")
+    sub = parser.add_subparsers(dest="command", required=True)
 
+    p_add = sub.add_parser("add", help="Add a new password")
+    p_add.add_argument("website")
+
+    p_get = sub.add_parser("get", help="Get password")
+    p_get.add_argument("website")
+
+    sub.add_parser("list", help="List all websites")
+
+    p_del = sub.add_parser("delete", help="Delete password")
+    p_del.add_argument("website")
+
+    args = parser.parse_args()
+
+    master = getpass.getpass(prompt="Master password: ")
+    pwd_manager = PasswordManager(master)
+    if not pwd_manager.load():
+        return
+
+    if args.command == "add":
+        pwd = getpass.getpass(prompt= f"Password for {args.website}: ")
+        pwd_manager.add(args.website, pwd)
+    elif args.command == "get":
+        pwd_manager.read(args.website)
+    elif args.command == "list":
+        pwd_manager.list()
+    elif args.command == "delete":
+        pwd_manager.delete(args.website)
 
 
 
