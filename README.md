@@ -12,5 +12,5 @@ Gestionnaire de mdp en ligne de commande :
 - python pwd_manager.py add website
 - python pwd_manager.py get website
 - python pwd_manager.py list
-- python pwd_manager.py del website
+- python pwd_manager.py delete website
 
